@@ -9,15 +9,18 @@ function main() {
   var shape = new Shape([0, 0, 200, 0, 200, 200, 50, 200, 0, 250], [10])
   shape.o = [10, 10]
   var shapePath = new Path2D()
+  var pointsPath = new Path2D()
   // var shapePath = draw(new Path2D(), shape)
   // shapePath.rect(0, 0, 50, 50)
-  // shape3.tfm.skewXSelf(-45)
+  shape.tfm.skewXSelf(45)
   shape.draw(shapePath)
+  shape.drawPoints(pointsPath)
   // ctx.setTransform(1, 0, -1, 1, 150, 0)
   ctx.stroke(shapePath)
-  // ctx.fill(shapePath)
+  ctx.fillStyle = 'rgba(255,0,0,0.5)'
+  ctx.fill(pointsPath)
 
-  ctx.fillStyle = "rgba(255,0,0,0.5)"
+  // ctx.fillStyle = "rgba(255,0,0,0.5)"
   // ctx.fill(drawPoints(new Path2D(), shape, 10))
 }
 
