@@ -38,7 +38,7 @@ class DOMPoint {
   }
 }
 
-var Matrix = window.DOMMatrix || window.WebKitCSSMatrix || window.MSCSSMatrix
+var Matrix = window.DOMMatrix || window.WebKitCSSMatrix
 var Point = DOMPoint
 
 export {Point, Matrix}
