@@ -1,13 +1,17 @@
-import "./styles.css"
+import './styles.css'
+import {Shape2} from './shape.js'
+
 
 function main() {
   var canvas = document.getElementById("canvas")
   var ctx = canvas.getContext("2d")
   var shape = new Shape([20, 0, 220, 0, 200, 200, 50, 200, 0, 250], [10])
+  var shape2 = new Shape2([0, 0, 200, 0, 200, 200, 50, 200, 0, 250], [10])
   shape.o = [10, 10]
   var shapePath = draw(new Path2D(), shape)
-  shapePath.rect(0, 0, 50, 50)
-  ctx.setTransform(1, 0, -1, 1, 150, 0)
+  // shapePath.rect(0, 0, 50, 50)
+  shape2.draw(shapePath)
+  // ctx.setTransform(1, 0, -1, 1, 150, 0)
   ctx.stroke(shapePath)
   // ctx.fill(shapePath)
 
@@ -79,7 +83,7 @@ function trace(from, to, dist) {
     yl = from[1] - to[1]
   var ll = Math.sqrt(Math.pow(xl, 2) + Math.pow(yl, 2))
   dist = dist < 0 ? ll + dist : dist
-  console.log(ll, dist)
+  // console.log(ll, dist)
   var x = xl - (xl / ll) * dist + to[0]
   var y = yl - (yl / ll) * dist + to[1]
   return [x, y]
