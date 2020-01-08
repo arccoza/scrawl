@@ -1,33 +1,18 @@
 import './styles.css'
-import {Shape2, Shape3} from './shape.js'
+import {Shape} from './shape.js'
 
 
 function main() {
   var canvas = document.getElementById("canvas")
   var ctx = canvas.getContext("2d")
-  var shape = new Shape([20, 0, 220, 0, 200, 200, 50, 200, 0, 250], [10])
-  var shape2 = new Shape2([0, 0, 200, 0, 200, 200, 50, 200, 0, 250], [10])
-  var shape3 = new Shape3([0, 0, 200, 0, 200, 200, 50, 200, 0, 250], [10])
+  var shape0 = new Shape0([20, 0, 220, 0, 200, 200, 50, 200, 0, 250], [10])
+  var shape = new Shape([0, 0, 200, 0, 200, 200, 50, 200, 0, 250], [10])
   shape.o = [10, 10]
   var shapePath = new Path2D()
   // var shapePath = draw(new Path2D(), shape)
   // shapePath.rect(0, 0, 50, 50)
   // shape3.tfm.skewXSelf(-45)
-  var t0, t1
-  t0 = performance.now()
-  for (var i = 0; i < 1000; i++) {
-    shape2.draw(shapePath)
-    // ctx.stroke()
-  }
-  t1 = performance.now()
-  console.log(t1 - t0)
-  t0 = performance.now()
-  for (var i = 0; i < 1000; i++) {
-    shape3.draw(shapePath)
-    // ctx.stroke()
-  }
-  t1 = performance.now()
-  console.log(t1 - t0)
+  shape.draw(shapePath)
   // ctx.setTransform(1, 0, -1, 1, 150, 0)
   ctx.stroke(shapePath)
   // ctx.fill(shapePath)
@@ -36,7 +21,7 @@ function main() {
   // ctx.fill(drawPoints(new Path2D(), shape, 10))
 }
 
-class Shape {
+class Shape0 {
   constructor(p, r = [0]) {
     this.p = p
     this.r = r
