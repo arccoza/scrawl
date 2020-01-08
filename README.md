@@ -1,2 +1,0 @@
-# scrawl
-Created with CodeSandbox

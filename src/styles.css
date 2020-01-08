@@ -1,0 +1,9 @@
+body {
+  font-family: sans-serif;
+}
+
+#canvas {
+  border: 1px solid red;
+  /*   width: 500px;
+  height: 500px; */
+}
