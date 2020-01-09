@@ -55,8 +55,14 @@ class DOMPoint {
 
   angle(src, origin=ORIGIN, inDeg=false) {
     origin = origin || ORIGIN
-    const mag1 = this.magnitude(origin), mag2 = src.magnitude(origin),
-    cos = mag1 && mag2 && (this.dot(src, origin) / (mag1 * mag2))
+    // We calculate the first magnitude, if it is 0 then we short circuit the second magnitude calc
+    // and taking the 0 of mag1 for mag2 from mag1 &&.. because later we would mag1 * mag2 which would
+    // give 0 anyway.
+    const mag1 = this.magnitude(origin), mag2 = mag1 && src.magnitude(origin),
+    // We don't calc the dot product or anything else if mag1 is 0 and short circuit thanks to mag1 &&..
+    // and just get the 0 of mag1, because mag1 * mag2 would be 0.
+    cos = mag1 && (this.dot(src, origin) / (mag1 * mag2))
+    // Take the inverse cosine, arccos, to get our angle.
     return Math.acos(cos) * (inDeg ? DEGREE : 1)
   }
 }
