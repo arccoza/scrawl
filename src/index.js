@@ -12,7 +12,7 @@ function main() {
   var pointsPath = new Path2D()
   // var shapePath = draw(new Path2D(), shape)
   // shapePath.rect(0, 0, 50, 50)
-  shape.tfm.skewXSelf(45)
+  // shape.tfm.skewXSelf(45)
   shape.draw(shapePath)
   shape.drawPoints(pointsPath)
   // ctx.setTransform(1, 0, -1, 1, 150, 0)

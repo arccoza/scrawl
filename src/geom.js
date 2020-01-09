@@ -6,12 +6,12 @@ class DOMPoint {
     this.w = w;
   }
 
-  static fromPoint(otherPoint) {
+  static fromPoint(src) {
     return new DOMPoint(
-      otherPoint.x,
-      otherPoint.y,
-      otherPoint.z !== undefined ? otherPoint.z : 0,
-      otherPoint.w !== undefined ? otherPoint.w : 1
+      src.x,
+      src.y,
+      src.z !== undefined ? src.z : 0,
+      src.w !== undefined ? src.w : 1
     );
   }
 
@@ -36,9 +36,34 @@ class DOMPoint {
       );
     }
   }
+
+  dot(src, origin=ORIGIN) {
+    const x = (this.x - origin.x) * (src.x - origin.x),
+    y = (this.y - origin.y) * (src.y - origin.y),
+    z = (this.z - origin.z) * (src.z - origin.z)
+    return x + y + z
+  }
+
+  magnitude(origin=ORIGIN) {
+    return Math.hypot(this.x - origin.x, this.y - origin.y, this.z - origin.z)
+  }
+
+  magnitudeSq(origin=ORIGIN) {
+    var x = this.x - origin.x, y = this.y - origin.y, z = this.z - origin.z
+    return x*x + y*y + z*z
+  }
+
+  angle(src, origin=ORIGIN, inDeg=false) {
+    origin = origin || ORIGIN
+    const mag1 = this.magnitude(origin), mag2 = src.magnitude(origin),
+    cos = mag1 && mag2 && (this.dot(src, origin) / (mag1 * mag2))
+    return Math.acos(cos) * (inDeg ? DEGREE : 1)
+  }
 }
 
-var Matrix = window.DOMMatrix || window.WebKitCSSMatrix
-var Point = DOMPoint
+const ORIGIN = new DOMPoint(),
+DEGREE = 180/Math.PI,
+Matrix = window.DOMMatrix || window.WebKitCSSMatrix,
+Point = DOMPoint
 
 export {Point, Matrix}
