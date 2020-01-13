@@ -55,11 +55,9 @@ class DOMPoint {
   }
 
   angle(src, origin=ORIGIN) {
-    const mag1 = this.magnitude(origin),
-    mag2 = src.magnitude(origin),
-    mag = mag1 * mag2,
+    const mag = this.magnitude(origin) * src.magnitude(origin),
     cos = mag && (this.dot(src, origin) / mag)
-    return Math.acos(cos)
+    return Math.acos(Math.min(Math.max(cos, -1), 1))
   }
 }
 
