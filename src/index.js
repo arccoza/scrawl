@@ -1,5 +1,6 @@
 import './styles.css'
 import {Shape} from './shape.js'
+import {Point, Matrix, DEGREES} from './geom.js'
 
 
 function main() {
@@ -16,9 +17,62 @@ function main() {
   shape.draw(shapePath)
   shape.drawPoints(pointsPath)
   // ctx.setTransform(1, 0, -1, 1, 150, 0)
-  ctx.stroke(shapePath)
-  ctx.fillStyle = 'rgba(255,0,0,0.5)'
-  ctx.fill(pointsPath)
+  // ctx.stroke(shapePath)
+  // ctx.fillStyle = 'rgba(255,0,0,0.5)'
+  // ctx.fill(pointsPath)
+
+  var r = 50
+  var a = new Point(0, 200), b = new Point(200, 0)
+  var ang = a.angle(b)
+  var cos = a.trace(b), sin = Math.sin(ang), dist2 = r * Math.sqrt((1 + cos) / (1 - cos))
+  var dist = 1/Math.tan(ang/2) * r, c = a.travel(dist2)
+  var f = (4/3)*Math.tan(ang/4), c1 = cos + f*sin, c2 = sin - f*cos
+  var d = b.travel(dist2), dist3 = dist2 - (sin * dist2*0.55)
+  //dist2 - Math.sin(ang)*dist2*0.55
+  //dist2 - (Math.tan(ang/2) * dist2)
+  console.log(ang, sin, 1-((cos+1)/2))
+  //(Math.abs(cos))*0.45*dist2
+  //(dist2*0.45) + Math.pow((cos),2) * (dist2*0.45)
+  //dist2 - (dist2 * 0.55) * 1/Math.sqrt((1 + cos) / (1 - cos))
+  //dist2 - dist2*0.55*Math.pow((cos+1)/2, (cos+1)/2)
+  //dist3 = dist2 - dist2*0.55*Math.pow((1 - cos) / (1 + cos), 0.3*cos)
+  //(dist2 - r) - (cos+1)//dist2/2 + cos*(dist2 - r)/2.4 //* Math.sqrt((1 + cos) / (1 - cos)) //dist2*0.5//dist2/Math.sqrt(cos + 1)//(dist2 - r)
+  var e = a.travel(dist3), f = b.travel(dist3)
+  console.log(dist, dist2, dist3, (cos+1)/2, Math.sqrt((1 + cos) / (1 - cos)))
+  ctx.translate(150, 0)
+  ctx.beginPath()
+  ctx.strokeStyle = 'black'
+  ctx.moveTo(0, 0)
+  ctx.lineTo(a.x, a.y)
+  ctx.moveTo(0, 0)
+  ctx.lineTo(b.x, b.y)
+  ctx.moveTo(0, 0)
+  ctx.stroke()
+
+  console.log(d)
+  ctx.beginPath()
+  // ctx.lineTo(c.x, c.y)
+  ctx.moveTo(c.x, c.y)
+  ctx.arc(c.x, c.y, 5, 0, 2 * Math.PI)
+  ctx.stroke()
+
+  ctx.beginPath()
+  // ctx.lineTo(c.x, c.y)
+  ctx.moveTo(e.x, e.y)
+  ctx.arc(e.x, e.y, 5, 0, 2 * Math.PI)
+  ctx.stroke()
+
+  ctx.beginPath()
+  ctx.strokeStyle = 'red'
+  ctx.moveTo(c.x, c.y)
+  ctx.arcTo(0, 0, d.x, d.y, r)
+  ctx.stroke()
+
+  ctx.beginPath()
+  ctx.strokeStyle = 'blue'
+  ctx.moveTo(c.x, c.y)
+  ctx.bezierCurveTo(e.x, e.y, f.x, f.y, d.x, d.y)
+  ctx.stroke()
 
   // ctx.fillStyle = "rgba(255,0,0,0.5)"
   // ctx.fill(drawPoints(new Path2D(), shape, 10))

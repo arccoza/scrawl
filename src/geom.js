@@ -59,6 +59,29 @@ class DOMPoint {
     cos = mag && (this.dot(src, origin) / mag)
     return Math.acos(Math.min(Math.max(cos, -1), 1))
   }
+
+  // (Math.cos(Math.PI*1) - 1)/2
+  trace(src, origin=ORIGIN) {
+    const mag1 = this.magnitude(origin),
+    mag2 = src.magnitude(origin),
+    mag = mag1 * mag2,
+    cos = mag && (this.dot(src, origin) / mag)
+    // return (cos + 1)
+    return cos
+  }
+
+  travel(dist, origin=ORIGIN) {
+    const to = this,
+    xl = origin.x - to.x,
+    yl = origin.y - to.y,
+    ll = Math.sqrt(xl*xl + yl*yl)
+    //dist = dist < 0 ? ll + dist : dist
+    // dist = dist % ll
+    // console.log(ll, dist)
+    var x = xl - (xl / ll) * dist + to.x
+    var y = yl - (yl / ll) * dist + to.y
+    return new Point(x, y)
+  }
 }
 
 const ORIGIN = new DOMPoint(),

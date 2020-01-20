@@ -1,4 +1,4 @@
-import {Point, Matrix} from './geom.js'
+import {Point, Matrix, DEGREES} from './geom.js'
 
 export class Shape {
   constructor(p, r = [0]) {
@@ -9,6 +9,7 @@ export class Shape {
       this.pts.push(v)
     }
     this.tfm = new Matrix([1, 0, 0, 1, 0, 0])
+    this.isClosed = true
   }
 
   get(idx) {
@@ -18,7 +19,9 @@ export class Shape {
   draw(ctx) {
     ctx.beginPath && ctx.beginPath()
     
-    console.log(this.get(1).angle(this.get(2), new Point(200, 0), true))
+    // console.log(this.get(1).angle(this.get(2), new Point(200, 0)) * DEGREES)
+    // console.log((new Point(200, 0)).trace(new Point(200, 0), new Point(0, 0)))
+    console.log((new Point(200, 200)).travel(5, new Point(0, 0)))
     // console.log(this.get(3).magnitudeSq(this.get(2)))
     // console.log(this.get(1).dot(this.get(2), this.get(3)))
     var p = this.get(0)
@@ -26,6 +29,7 @@ export class Shape {
     for (var i = 0; i < this.pts.length; i++) {
       p = this.get(i)
       ctx.lineTo(p.x, p.y)
+      // ctx.arcTo(p.x, p.y, p.x, p.y, 50)
     }
     
     ctx.closePath()
