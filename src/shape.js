@@ -8,22 +8,29 @@ export class Shape {
       v = new Point(p[i], p[i+1])
       this.pts.push(v)
     }
-    this.tfm = new Matrix([1, 0, 0, 1, 0, 0])
+    this.transform = new Matrix([1, 0, 0, 1, 0, 0])
     this.isClosed = true
   }
 
   get(idx) {
-    return !this.tfm.isIdentity ? this.pts[idx].matrixTransform(this.tfm) : this.pts[idx]
+    idx = idx >= 0 ? idx : this.pts.length + idx
+    const pt = this.pts[idx], tfm = this.transform
+    return tfm.isIdentity || pt == null ? pt : pt.matrixTransform(tfm)
   }
 
   draw(ctx) {
-    ctx.beginPath && ctx.beginPath()
+    const pts = this.pts, isClosed = this.isClosed, wedge = new Array(3)
     
-    // console.log(this.get(1).angle(this.get(2), new Point(200, 0)) * DEGREES)
-    // console.log((new Point(200, 0)).trace(new Point(200, 0), new Point(0, 0)))
-    console.log((new Point(200, 200)).travel(5, new Point(0, 0)))
-    // console.log(this.get(3).magnitudeSq(this.get(2)))
-    // console.log(this.get(1).dot(this.get(2), this.get(3)))
+    // If the ctx is a Path2D it won't have beginPath, check before call
+    ctx.beginPath && ctx.beginPath()
+
+    // If the shape has fewer than 3 points no need for anything fancy
+    if (pts.length < 3) {
+      pts.forEach((p, i) => i == 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y))
+      return isClosed && ctx.closePath(), ctx
+    }
+    
+    
     var p = this.get(0)
     ctx.moveTo(p.x, p.y)
     for (var i = 0; i < this.pts.length; i++) {
@@ -32,8 +39,7 @@ export class Shape {
       // ctx.arcTo(p.x, p.y, p.x, p.y, 50)
     }
     
-    ctx.closePath()
-    return ctx
+    return isClosed && ctx.closePath(), ctx
   }
 
   drawPoints(ctx, size=5) {
