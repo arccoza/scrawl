@@ -40,7 +40,7 @@ export class Shape {
         
     for (var i = 0; i < len; i++) {
       var w = this.edge(i-1, i+2), r = this.rad[0]
-      var [a1, c1, c2, a2] = w[1].round(w[0], w[2], r)
+      var [a1, c1, c2, a2] = w[1].round(w[0], w[2], r, 0.6)
 
       i ? ctx.lineTo(a1.x, a1.y) : ctx.moveTo(a1.x, a1.y)
       ctx.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, a2.x, a2.y)
