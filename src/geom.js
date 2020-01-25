@@ -60,14 +60,20 @@ class DOMPoint {
     return Math.acos(Math.min(Math.max(cos, -1), 1))
   }
 
-  // (Math.cos(Math.PI*1) - 1)/2
-  trace(src, origin=ORIGIN) {
-    const mag1 = this.magnitude(origin),
-    mag2 = src.magnitude(origin),
-    mag = mag1 * mag2,
+  cosOf(src, origin=ORIGIN) {
+    const mag = this.magnitude(origin) * src.magnitude(origin),
     cos = mag && (this.dot(src, origin) / mag)
-    // return (cos + 1)
     return cos
+  }
+
+  sinOf(src, origin=ORIGIN) {
+    const cos = this.cosOf(src, origin)
+    return Math.sqrt(1 - cos*cos)
+  }
+
+  tanOf(src, origin=ORIGIN) {
+    const cos = this.cosOf(src, origin)
+    return Math.sqrt(1 - cos*cos)/cos 
   }
 
   travel(dist, origin=ORIGIN) {
