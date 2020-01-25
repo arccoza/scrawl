@@ -86,7 +86,9 @@ class DOMPoint {
 
 const ORIGIN = new DOMPoint(),
 DEGREES = 180/Math.PI,
+EPSILON = 1e-7,
+KAPPA = 4 * (Math.sqrt(2) - 1) / 3,
 Matrix = window.DOMMatrix || window.WebKitCSSMatrix,
 Point = DOMPoint
 
-export {Point, Matrix, DEGREES}
+export {Point, Matrix, DEGREES, EPSILON, KAPPA}
