@@ -37,10 +37,10 @@ class DOMPoint {
     }
   }
 
-  dot(src, origin=ORIGIN) {
-    const x = (this.x - origin.x) * (src.x - origin.x),
-    y = (this.y - origin.y) * (src.y - origin.y),
-    z = (this.z - origin.z) * (src.z - origin.z)
+  dot(b, origin=ORIGIN) {
+    const x = (this.x - origin.x) * (b.x - origin.x),
+    y = (this.y - origin.y) * (b.y - origin.y),
+    z = (this.z - origin.z) * (b.z - origin.z)
     return x + y + z
   }
 
@@ -54,25 +54,25 @@ class DOMPoint {
     return x*x + y*y + z*z
   }
 
-  angle(src, origin=ORIGIN) {
-    const mag = this.magnitude(origin) * src.magnitude(origin),
-    cos = mag && (this.dot(src, origin) / mag)
+  angle(b, origin=ORIGIN) {
+    const mag = this.magnitude(origin) * b.magnitude(origin),
+    cos = mag && (this.dot(b, origin) / mag)
     return Math.acos(Math.min(Math.max(cos, -1), 1))
   }
 
-  cosOf(src, origin=ORIGIN) {
-    const mag = this.magnitude(origin) * src.magnitude(origin),
-    cos = mag && (this.dot(src, origin) / mag)
+  cosOf(b, origin=ORIGIN) {
+    const mag = this.magnitude(origin) * b.magnitude(origin),
+    cos = mag && (this.dot(b, origin) / mag)
     return cos
   }
 
-  sinOf(src, origin=ORIGIN) {
-    const cos = this.cosOf(src, origin)
+  sinOf(b, origin=ORIGIN) {
+    const cos = this.cosOf(b, origin)
     return Math.sqrt(1 - cos*cos)
   }
 
-  tanOf(src, origin=ORIGIN) {
-    const cos = this.cosOf(src, origin)
+  tanOf(b, origin=ORIGIN) {
+    const cos = this.cosOf(b, origin)
     return Math.sqrt(1 - cos*cos)/cos 
   }
 
