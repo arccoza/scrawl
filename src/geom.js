@@ -76,6 +76,14 @@ class DOMPoint {
     return Math.sqrt(1 - cos*cos)/cos 
   }
 
+  round(bf, af, rd=0, sm=0) {
+    const cos = bf.cosOf(af, this), sin = bf.sinOf(af, this),
+    r = rd * Math.sqrt((1 + cos) / (1 - cos)), r2 = r - (sin * r * KAPPA),
+    a1 = bf.travel(r, this), a2 = af.travel(r, this),
+    c1 = bf.travel(r2, this), c2 = af.travel(r2, this)
+    return [a1, c1, c2, a2]
+  }
+
   travel(dist, origin=ORIGIN) {
     const to = this,
     xl = origin.x - to.x,
