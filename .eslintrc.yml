@@ -19,3 +19,4 @@ rules:
   one-var:
     - off
     - consecutive
+  no-sequences: off
