@@ -1,11 +1,10 @@
 import './styles.css'
-import {Shape} from './shape.js'
-import {Point, Matrix, DEGREES} from './geom.js'
+import { Shape } from './shape.js'
+import { Point, Matrix, DEGREES } from './geom.js'
 
-
-function main() {
-  var canvas = document.getElementById("canvas")
-  var ctx = canvas.getContext("2d")
+function main () {
+  var canvas = document.getElementById('canvas')
+  var ctx = canvas.getContext('2d')
   var shape0 = new Shape0([20, 0, 220, 0, 200, 200, 50, 200, 0, 250], [10])
   var shape = new Shape([0, 0, 200, 0, 200, 200, 50, 200, 0, 250], [10])
   shape.o = [10, 10]
@@ -83,27 +82,27 @@ function main() {
 }
 
 class Shape0 {
-  constructor(p, r = [0]) {
+  constructor (p, r = [0]) {
     this.p = p
     this.r = r
     this.o = [0, 0]
   }
 
-  get length() {
+  get length () {
     return this.p.length / 2
   }
 
-  get(i, withR = false) {
+  get (i, withR = false) {
     i %= this.length
     var p = this.p.slice((i = i * 2), i + 2 || this.p.length)
     return [p[0] + this.o[0], p[1] + this.o[1]]
   }
 
-  round(i) {
+  round (i) {
     return (this.r.length === 1 && this.r[0]) || this.r[i] || 0
   }
 
-  arcp(i) {
+  arcp (i) {
     var r = this.round(i)
     var a = this.get(i)
     if (!r) return [...a, ...a, r]
@@ -114,7 +113,7 @@ class Shape0 {
   }
 }
 
-function draw(ctx, shape) {
+function draw (ctx, shape) {
   ctx.beginPath && ctx.beginPath()
   // ctx.moveTo(...shape.get(0))
   ctx.moveTo(...trace(shape.get(0), shape.get(-1), shape.r[0]))
@@ -131,7 +130,7 @@ function draw(ctx, shape) {
   return ctx
 }
 
-function drawPoints(ctx, shape, size = 5) {
+function drawPoints (ctx, shape, size = 5) {
   ctx.beginPath && ctx.beginPath()
   for (var i = 0, arc = 2 * Math.PI, p; i < shape.length; i++) {
     p = shape.get(i)
@@ -141,7 +140,7 @@ function drawPoints(ctx, shape, size = 5) {
   return ctx
 }
 
-function trace(from, to, dist) {
+function trace (from, to, dist) {
   var xl = from[0] - to[0],
     yl = from[1] - to[1]
   var ll = Math.sqrt(Math.pow(xl, 2) + Math.pow(yl, 2))
